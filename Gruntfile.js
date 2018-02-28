@@ -285,7 +285,7 @@ module.exports = function(grunt) {
   // dist: make dist files
   grunt.registerTask('dist', [
     'clean:dist',
-    'build', 'webfont', 'lint', 'karma:dist',
+    'build', 'webfont', 'lint',
     'copy:dist', 'uglify', 'recess', 'compress'
   ]);
 
