@@ -5,7 +5,7 @@
  * Copyright 2013- Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license.
  *
- * Date: 2018-02-20T00:34Z
+ * Date: 2018-02-28T21:48Z
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
@@ -1814,7 +1814,8 @@ $$1.extend($$1.summernote.lang, {
             transparent: 'Transparent',
             setTransparent: 'Set transparent',
             reset: 'Reset',
-            resetToDefault: 'Reset to default'
+            resetToDefault: 'Reset to default',
+            cpSelect: 'Select'
         },
         shortcut: {
             shortcuts: 'Keyboard shortcuts',
@@ -5272,6 +5273,12 @@ var Buttons = /** @class */ (function () {
                             '    </button>',
                             '  </div>',
                             '  <div class="note-holder" data-event="backColor"/>',
+                            '  <div class="btn-sm">',
+                            '    <input type="color" id="html5bcp" class="note-btn btn-default" value="#21104A" style="width:100%;" data-value="cp">',
+                            '    <button type="button" class="note-color-reset btn" data-event="backColor" data-value="cpbackColor">',
+                            _this.lang.color.cpSelect,
+                            '    </button>',
+                            '  </div>',
                             '</div>',
                             '<div class="note-palette">',
                             '  <div class="note-palette-title">' + _this.lang.color.foreground + '</div>',
@@ -5281,6 +5288,11 @@ var Buttons = /** @class */ (function () {
                             '    </button>',
                             '  </div>',
                             '  <div class="note-holder" data-event="foreColor"/>',
+                            '  <div class="btn-sm">',
+                            '    <input type="color" id="html5fcp" class="note-btn btn-default" value="#21104A" style="width:100%;" data-value="cp">',
+                            '    <button type="button" class="note-color-reset btn" data-event="foreColor" data-value="cpforeColor">',
+                            _this.lang.color.cpSelect,
+                            '    </button>',
                             '</div>'
                         ].join(''),
                         callback: function ($dropdown) {
@@ -5299,6 +5311,17 @@ var Buttons = /** @class */ (function () {
                             var $button = $$1(event.target);
                             var eventName = $button.data('event');
                             var value = $button.data('value');
+                            var foreinput = document.getElementById('html5fcp').value;
+                            var backinput = document.getElementById('html5bcp').value;
+                            if (value === 'cp') {
+                                event.stopPropagation();
+                            }
+                            else if (value === 'cpbackColor') {
+                                value = backinput;
+                            }
+                            else if (value === 'cpforeColor') {
+                                value = foreinput;
+                            }
                             if (eventName && value) {
                                 var key = eventName === 'backColor' ? 'background-color' : 'color';
                                 var $color = $button.closest('.note-color').find('.note-recent-color');
